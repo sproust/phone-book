@@ -1,0 +1,19 @@
+# see https://doc.nette.org/en/configuring
+
+parameters:
+
+
+application:
+	mapping: App\Presentation\*\**Presenter
+
+
+database:
+	dsn: 'mysql:host=localhost;dbname=phone-book;charset=utf8'
+	user: root
+	password: root
+
+
+di:
+	export:
+		parameters: no
+		tags: no
