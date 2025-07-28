@@ -27,7 +27,7 @@ class ContactEntity
 	protected DateTimeImmutable $createdAt;
 
 	#[ORM\Column(type: 'datetime_immutable', nullable: true)]
-	protected ?DateTimeImmutable $updatedAt;
+	protected ?DateTimeImmutable $updatedAt = null;
 
 	public function getId(): int
 	{
