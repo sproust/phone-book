@@ -15,10 +15,12 @@ exec\:php:
 
 init:
 	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php composer install --ansi
+	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console orm:schema-tool:drop --force --full-database --ansi
+	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console orm:schema-tool:create --ansi
 
 diff:
-	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php php bin/console doctrine:schema:drop --force --full-database
-	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php php bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
-	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php php bin/console doctrine:migrations:diff --allow-empty-diff
+	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console orm:schema-tool:drop --force --full-database
+	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console migrations:migrate --allow-no-migration --no-interaction
+	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console migrations:diff --allow-empty-diff
 	git add migrations/*
 	make init

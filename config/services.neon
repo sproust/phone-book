@@ -1,11 +1,23 @@
 services:
-    - App\Core\RouterFactory::createRouter
+	- App\Application\Routing\RouterFactory::createRouter
+
+	graphQLSchema:
+		factory: GraphQL\Type\Schema
+		arguments:
+			config:
+				query: @App\Presentation\GraphQL\Contact\ContactQuery
+				mutation: @App\Presentation\GraphQL\Contact\ContactMutation
 
 
 search:
-    -in: %appDir%
-    classes:
-        - *Facade
-        - *Factory
-        - *Repository
-        - *Service
+	-	in: %appDir%
+		classes:
+			- *Facade
+			- *Factory
+			- *Repository
+			- *Service
+			- *UseCase
+			- *Type
+			- *Query
+			- *Mutation
+			- *Resolver

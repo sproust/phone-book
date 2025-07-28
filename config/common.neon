@@ -2,18 +2,48 @@
 
 parameters:
 
+extensions:
+	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+
+	# Common
+	nettrine.annotations: Nettrine\Annotations\DI\AnnotationsExtension
+	nettrine.cache: Nettrine\Cache\DI\CacheExtension
+	nettrine.migrations: Nettrine\Migrations\DI\MigrationsExtension
+	nettrine.fixtures: Nettrine\Fixtures\DI\FixturesExtension
+
+	# DBAL
+	nettrine.dbal: Nettrine\DBAL\DI\DbalExtension
+
+	# ORM
+	nettrine.orm: Nettrine\ORM\DI\OrmExtension
 
 application:
-	mapping: App\Presentation\*\**Presenter
+	mapping: App\Presentation\Presenter\*\**Presenter
 
+nettrine.dbal:
+	connections:
+		default:
+			url: "mysql://root:root@mariadb:3306/phone-book?serverVersion=10.11.6-MariaDB"
 
-database:
-	dsn: 'mysql:host=localhost;dbname=phone-book;charset=utf8'
-	user: root
-	password: root
+nettrine.orm:
+	managers:
+		default:
+			defaultCache: Symfony\Component\Cache\Adapter\FilesystemAdapter(namespace: orm, defaultLifetime: 0, directory: %tempDir%/cache/doctrine/orm)
+			connection: default
+			mapping:
+				App:
+					directories: [%appDir%/Domain/Entity]
+					namespace: App\Domain\Entity
 
+nettrine.migrations:
+	directories:
+		App\Migrations: %appDir%/../migrations
 
 di:
 	export:
 		parameters: no
 		tags: no
+
+tracy:
+    logSeverity: E_ALL
+    showBar: true
