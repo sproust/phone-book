@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\UseCase\Contact\DetailContactUseCase;
+namespace App\Domain\VO;
 
 use DateTimeImmutable;
 
-final readonly class DetailContactUseCaseVO
+final readonly class ContactVO
 {
 
 	public function __construct(

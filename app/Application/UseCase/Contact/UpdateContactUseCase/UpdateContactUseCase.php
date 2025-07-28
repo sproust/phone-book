@@ -3,6 +3,7 @@
 namespace App\Application\UseCase\Contact\UpdateContactUseCase;
 
 use App\Application\Repository\ContactRepository;
+use App\Domain\VO\ContactVO;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityNotFoundException;
 
@@ -13,7 +14,7 @@ final readonly class UpdateContactUseCase
 	{
 	}
 
-	public function process(UpdateContactUseCaseInput $input): bool
+	public function process(UpdateContactUseCaseInput $input): ContactVO
 	{
 		$contact = $this->contactRepository->findById($input->id);
 
@@ -27,7 +28,14 @@ final readonly class UpdateContactUseCase
 		$contact->setUpdatedAt(new DateTimeImmutable());
 		$this->contactRepository->update($contact);
 
-		return true;
+		return new ContactVO(
+			id: $contact->getId(),
+			firstName: $contact->getFirstName(),
+			lastName: $contact->getLastName(),
+			phone: $contact->getPhone(),
+			createdAt: $contact->getCreatedAt(),
+			updatedAt: $contact->getUpdatedAt()
+		);
 	}
 
 }
