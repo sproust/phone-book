@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Core;
+namespace App\Application\Routing;
 
 use Nette;
 use Nette\Application\Routers\RouteList;
@@ -15,7 +15,8 @@ final class RouterFactory
 	public static function createRouter(): RouteList
 	{
 		$router = new RouteList;
-		$router->addRoute('api/v1/<presenter>/<action>[/<id>]', 'Home:default');
+		$router->addRoute('graphiql', 'Graphql:ui');
+		$router->addRoute('api/v1/<presenter>/<action>[/<id>]', 'Graphql:default');
 		return $router;
 	}
 }
