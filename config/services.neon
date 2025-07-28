@@ -5,8 +5,8 @@ services:
 		factory: GraphQL\Type\Schema
 		arguments:
 			config:
-				query: @App\Presentation\GraphQL\Contact\ContactQuery
-				mutation: @App\Presentation\GraphQL\Contact\ContactMutation
+				query: @App\Infrastructure\GraphQL\Contact\ContactQuery
+				mutation: @App\Infrastructure\GraphQL\Contact\ContactMutation
 
 
 search:
