@@ -3,6 +3,7 @@
 namespace App\Application\UseCase\Contact\DetailContactUseCase;
 
 use App\Application\Repository\ContactRepository;
+use App\Domain\VO\ContactVO;
 use Doctrine\ORM\EntityNotFoundException;
 
 final readonly class DetailContactUseCase
@@ -12,7 +13,7 @@ final readonly class DetailContactUseCase
 	{
 	}
 
-	public function process(string $phone): DetailContactUseCaseVO
+	public function process(string $phone): ContactVO
 	{
 		$contact = $this->contactRepository->findByPhone($phone);
 
@@ -20,7 +21,7 @@ final readonly class DetailContactUseCase
 			throw new EntityNotFoundException('Contact not found.');
 		}
 
-		return new DetailContactUseCaseVO(
+		return new ContactVO(
 			id: $contact->getId(),
 			firstName: $contact->getFirstName(),
 			lastName: $contact->getLastName(),

@@ -3,6 +3,7 @@
 namespace App\Application\UseCase\Contact\CreateContactUseCase;
 
 use App\Application\Repository\ContactRepository;
+use App\Domain\VO\ContactVO;
 use DateTimeImmutable;
 
 final readonly class CreateContactUseCase
@@ -12,7 +13,7 @@ final readonly class CreateContactUseCase
 	{
 	}
 
-	public function process(CreateContactUseCaseInput $input): int
+	public function process(CreateContactUseCaseInput $input): ContactVO
 	{
 		$contact = $this->contactRepository->createEntity();
 		$contact->setFirstName($input->firstName);
@@ -21,7 +22,14 @@ final readonly class CreateContactUseCase
 		$contact->setCreatedAt(new DateTimeImmutable());
 		$this->contactRepository->insert($contact);
 
-		return $contact->getId();
+		return new ContactVO(
+			id: $contact->getId(),
+			firstName: $contact->getFirstName(),
+			lastName: $contact->getLastName(),
+			phone: $contact->getPhone(),
+			createdAt: $contact->getCreatedAt(),
+			updatedAt: $contact->getUpdatedAt()
+		);
 	}
 
 }

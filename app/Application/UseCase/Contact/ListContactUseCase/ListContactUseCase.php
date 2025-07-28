@@ -3,6 +3,7 @@
 namespace App\Application\UseCase\Contact\ListContactUseCase;
 
 use App\Application\Repository\ContactRepository;
+use App\Domain\VO\ContactVO;
 
 final readonly class ListContactUseCase
 {
@@ -17,7 +18,7 @@ final readonly class ListContactUseCase
 
 		$contactVOs = [];
 		foreach ($contacts as $contact) {
-			$contactVOs[] = new ListContactUseCaseVO(
+			$contactVOs[] = new ContactVO(
 				id: $contact->getId(),
 				firstName: $contact->getFirstName(),
 				lastName: $contact->getLastName(),
