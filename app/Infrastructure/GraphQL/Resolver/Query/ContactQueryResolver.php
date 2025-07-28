@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presentation\GraphQL\Resolver\Query;
+namespace App\Infrastructure\GraphQL\Resolver\Query;
 
 
 use App\Application\UseCase\Contact\DetailContactUseCase\DetailContactUseCase;
