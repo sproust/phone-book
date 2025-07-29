@@ -17,6 +17,7 @@ init:
 	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php composer install --ansi
 	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console orm:schema-tool:drop --force --full-database --ansi
 	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console orm:schema-tool:create --ansi
+	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console doctrine:fixtures:load --no-interaction -vv --ansi
 
 diff:
 	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console orm:schema-tool:drop --force --full-database
