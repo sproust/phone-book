@@ -1,7 +1,8 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\GraphQL\Contact;
-
 
 use App\Application\UseCase\Contact\CreateContactUseCase\CreateContactUseCaseInput;
 use App\Application\UseCase\Contact\UpdateContactUseCase\UpdateContactUseCaseInput;
@@ -15,9 +16,8 @@ final class ContactMutation extends ObjectType
 	public function __construct(
 		private readonly CreateContactMutationResolver $createContactMutationResolver,
 		private readonly UpdateContactMutationResolver $updateContactMutationResolver,
-		private readonly ContactType                   $contactType
-	)
-	{
+		private readonly ContactType $contactType
+	) {
 		parent::__construct([
 			'name' => 'Mutation',
 			'fields' => [
@@ -28,11 +28,13 @@ final class ContactMutation extends ObjectType
 						'lastName' => Type::nonNull(Type::string()),
 						'phone' => Type::nonNull(Type::string()),
 					],
-					'resolve' => fn($root, array $args) => $this->createContactMutationResolver->resolve(new CreateContactUseCaseInput(
-						firstName: $args['firstName'],
-						lastName: $args['lastName'],
-						phone: $args['phone']
-					)),
+					'resolve' => fn($root, array $args) => $this->createContactMutationResolver->resolve(
+						new CreateContactUseCaseInput(
+							firstName: $args['firstName'],
+							lastName: $args['lastName'],
+							phone: $args['phone']
+						)
+					),
 				],
 				'updateContact' => [
 					'type' => $this->contactType,
@@ -42,12 +44,14 @@ final class ContactMutation extends ObjectType
 						'lastName' => Type::string(),
 						'phone' => Type::string(),
 					],
-					'resolve' => fn($root, array $args) => $this->updateContactMutationResolver->resolve(new UpdateContactUseCaseInput(
-						id: (int) $args['id'],
-						firstName: $args['firstName'],
-						lastName: $args['lastName'],
-						phone: $args['phone']
-					)),
+					'resolve' => fn($root, array $args) => $this->updateContactMutationResolver->resolve(
+						new UpdateContactUseCaseInput(
+							id: (int) $args['id'],
+							firstName: $args['firstName'],
+							lastName: $args['lastName'],
+							phone: $args['phone']
+						)
+					),
 				],
 			],
 		]);

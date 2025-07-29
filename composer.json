@@ -30,7 +30,9 @@
 	"require-dev": {
 		"nette/tester": "^2.5",
 		"phpstan/phpstan-nette": "^2",
-		"symfony/thanks": "^1"
+		"symfony/thanks": "^1",
+		"squizlabs/php_codesniffer": "^3.13",
+		"slevomat/coding-standard": "^8.20"
 	},
 	"autoload": {
 		"psr-4": {
@@ -45,7 +47,8 @@
 	"minimum-stability": "stable",
 	"config": {
 		"allow-plugins": {
-			"symfony/thanks": true
+			"symfony/thanks": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	}
 }

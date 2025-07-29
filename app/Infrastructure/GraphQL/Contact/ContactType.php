@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\GraphQL\Contact;
 
@@ -17,8 +19,8 @@ final class ContactType extends ObjectType
 				'lastName' => Type::string(),
 				'phone' => Type::string(),
 				'createdAt' => Type::string(),
-				'updatedAt' => Type::string()
-			]
+				'updatedAt' => Type::string(),
+			],
 		]);
 	}
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Application\UseCase\Contact\CreateContactUseCase;
 
@@ -9,7 +11,6 @@ use InvalidArgumentException;
 
 final readonly class CreateContactUseCase
 {
-
 	public function __construct(private ContactRepository $contactRepository)
 	{
 	}
@@ -18,7 +19,7 @@ final readonly class CreateContactUseCase
 	{
 		$existingContact = $this->contactRepository->findByPhone($input->phone);
 
-		if ($existingContact !== null) {
+		if (null !== $existingContact) {
 			throw new InvalidArgumentException('Contact already exists.');
 		}
 
@@ -38,5 +39,4 @@ final readonly class CreateContactUseCase
 			updatedAt: $contact->getUpdatedAt()
 		);
 	}
-
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Application\UseCase\Contact\ListContactUseCase;
 
@@ -7,7 +9,6 @@ use App\Domain\VO\ContactVO;
 
 final readonly class ListContactUseCase
 {
-
 	public function __construct(private ContactRepository $contactRepository)
 	{
 	}
@@ -30,5 +31,4 @@ final readonly class ListContactUseCase
 
 		return new ListContactUseCaseOutput($contactVOs);
 	}
-
 }

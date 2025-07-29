@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Application\UseCase\Contact\UpdateContactUseCase;
 
@@ -10,7 +12,6 @@ use InvalidArgumentException;
 
 final readonly class UpdateContactUseCase
 {
-
 	public function __construct(private ContactRepository $contactRepository)
 	{
 	}
@@ -19,13 +20,13 @@ final readonly class UpdateContactUseCase
 	{
 		$contact = $this->contactRepository->findById($input->id);
 
-		if ($contact === null) {
+		if (null === $contact) {
 			throw new EntityNotFoundException('Contact not found.');
 		}
 
 		$duplicateContact = $this->contactRepository->findByPhone($input->phone);
 
-		if ($duplicateContact !== null && $duplicateContact->getId() !== $contact->getId()) {
+		if (null !== $duplicateContact && $duplicateContact->getId() !== $contact->getId()) {
 			throw new InvalidArgumentException('Phone number already exists for another contact.');
 		}
 
@@ -44,5 +45,4 @@ final readonly class UpdateContactUseCase
 			updatedAt: $contact->getUpdatedAt()
 		);
 	}
-
 }

@@ -8,7 +8,6 @@ use Nette;
 use Nette\Bootstrap\Configurator;
 use Symfony\Component\Dotenv\Dotenv;
 
-
 class Bootstrap
 {
 	private Configurator $configurator;
@@ -18,7 +17,7 @@ class Bootstrap
 	public function __construct()
 	{
 		$this->rootDir = dirname(__DIR__);
-		$this->configurator = new Configurator;
+		$this->configurator = new Configurator();
 		$this->configurator->setTempDirectory($this->rootDir . '/temp');
 	}
 
@@ -40,7 +39,7 @@ class Bootstrap
 		$this->configurator->enableTracy($this->rootDir . '/log');
 		$this->configurator->setTimeZone('Europe/Prague');
 		$this->configurator->addDynamicParameters([
-			'env' => $_ENV
+			'env' => $_ENV,
 		]);
 
 		$this->configurator->createRobotLoader()

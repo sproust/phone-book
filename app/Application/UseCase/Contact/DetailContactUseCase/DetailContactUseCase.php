@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Application\UseCase\Contact\DetailContactUseCase;
 
@@ -8,7 +10,6 @@ use Doctrine\ORM\EntityNotFoundException;
 
 final readonly class DetailContactUseCase
 {
-
 	public function __construct(private ContactRepository $contactRepository)
 	{
 	}
@@ -17,7 +18,7 @@ final readonly class DetailContactUseCase
 	{
 		$contact = $this->contactRepository->findByPhone($phone);
 
-		if ($contact === null) {
+		if (null === $contact) {
 			throw new EntityNotFoundException('Contact not found.');
 		}
 
@@ -30,5 +31,4 @@ final readonly class DetailContactUseCase
 			updatedAt: $contact->getUpdatedAt()
 		);
 	}
-
 }

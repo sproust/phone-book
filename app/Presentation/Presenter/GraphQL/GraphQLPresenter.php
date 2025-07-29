@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Presentation\Presenter\GraphQL;
 
@@ -23,7 +25,7 @@ final class GraphQLPresenter extends Presenter
 
 	public function run(Request $request): Response
 	{
-		if ($request->getParameter('action') === 'ui') {
+		if ('ui' === $request->getParameter('action')) {
 			return new TextResponse(file_get_contents(__DIR__ . '/../templates/graphiql.html'));
 		}
 
@@ -31,12 +33,12 @@ final class GraphQLPresenter extends Presenter
 
 		try {
 			$rawInput = file_get_contents('php://input');
-			if ($rawInput === false) {
+			if (false === $rawInput) {
 				return new JsonResponse(['errors' => [['message' => 'Nepodařilo se přečíst vstupní data']]]);
 			}
 
 			$input = json_decode($rawInput, true);
-			if ($input === null) {
+			if (null === $input) {
 				return new JsonResponse(['message' => 'Welcome to phone-book API']);
 			}
 
@@ -54,11 +56,10 @@ final class GraphQLPresenter extends Presenter
 				'errors' => [
 					[
 						'message' => $e->getMessage(),
-						'code' => $e->getCode()
-					]
-				]
+						'code' => $e->getCode(),
+					],
+				],
 			]);
 		}
 	}
-
 }

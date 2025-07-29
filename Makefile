@@ -25,3 +25,12 @@ diff:
 	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php bin/console migrations:diff --allow-empty-diff
 	git add migrations/*
 	make init
+
+cs:
+	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php vendor/bin/phpcs --standard=.qa/phpcs/phpcs.xml --cache=.qa/phpcs/.phpcs-cache
+
+cs-fix:
+	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php vendor/bin/phpcbf --standard=.qa/phpcs/phpcs.xml --cache=.qa/phpcs/.phpcs-cache
+
+phpstan:
+	docker compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) exec php vendor/bin/phpstan analyse -c .qa/phpstan/phpstan.neon --ansi
