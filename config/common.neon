@@ -37,7 +37,11 @@ nettrine.orm:
 
 nettrine.migrations:
 	directories:
-		App\Migrations: %appDir%/../migrations
+		DoctrineMigrations: %appDir%/../migrations
+
+nettrine.fixtures:
+  paths:
+    - %appDir%/../fixtures
 
 di:
 	export:
