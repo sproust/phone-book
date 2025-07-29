@@ -6,6 +6,7 @@ use App\Application\Repository\ContactRepository;
 use App\Domain\VO\ContactVO;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityNotFoundException;
+use InvalidArgumentException;
 
 final readonly class UpdateContactUseCase
 {
@@ -20,6 +21,12 @@ final readonly class UpdateContactUseCase
 
 		if ($contact === null) {
 			throw new EntityNotFoundException('Contact not found.');
+		}
+
+		$duplicateContact = $this->contactRepository->findByPhone($input->phone);
+
+		if ($duplicateContact !== null && $duplicateContact->getId() !== $contact->getId()) {
+			throw new InvalidArgumentException('Phone number already exists for another contact.');
 		}
 
 		$contact->setFirstName($input->firstName);
