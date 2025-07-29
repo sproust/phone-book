@@ -5,6 +5,7 @@ namespace App\Application\UseCase\Contact\CreateContactUseCase;
 use App\Application\Repository\ContactRepository;
 use App\Domain\VO\ContactVO;
 use DateTimeImmutable;
+use InvalidArgumentException;
 
 final readonly class CreateContactUseCase
 {
@@ -15,6 +16,12 @@ final readonly class CreateContactUseCase
 
 	public function process(CreateContactUseCaseInput $input): ContactVO
 	{
+		$existingContact = $this->contactRepository->findByPhone($input->phone);
+
+		if ($existingContact !== null) {
+			throw new InvalidArgumentException('Contact already exists.');
+		}
+
 		$contact = $this->contactRepository->createEntity();
 		$contact->setFirstName($input->firstName);
 		$contact->setLastName($input->lastName);
