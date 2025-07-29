@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Standard">
+    <description>Custom coding standard with Slevomat rules</description>
+
+    <arg value="sp"/>
+    <arg name="colors"/>
+    <arg name="cache" value=".phpcs-cache"/>
+    <arg name="encoding" value="UTF-8"/>
+    <arg name="tab-width" value="4"/>
+    <arg name="report-width" value="120"/>
+    <arg name="extensions" value="php"/>
+    <arg name="report" value="full"/>
+    <arg name="parallel" value="8"/>
+
+    <!-- Paths to check -->
+    <file>../../app</file>
+
+    <!-- Exclude paths -->
+    <exclude-pattern>*/temp/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/cache/*</exclude-pattern>
+
+    <!-- Base ruleset -->
+    <rule ref="PSR12"/>
+
+    <!-- Enforce tabs for indentation -->
+    <arg name="tab-width" value="4"/>
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="tabIndent" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Convert spaces to tabs during fixing -->
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent">
+        <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+    </rule>
+
+
+    <!-- Slevomat Coding Standard Rules -->
+    <!-- Functional -->
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>
+    <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly"/>
+    <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
+
+    <!-- Cleanliness -->
+    <rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
+    <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
+    <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
+    <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
+
+    <!-- Dead Code -->
+    <rule ref="SlevomatCodingStandard.Functions.UnusedParameter">
+        <exclude-pattern>*/Infrastructure/GraphQL/*/*.php</exclude-pattern>
+        <exclude-pattern>*/Infrastructure/Repository/*.php</exclude-pattern>
+    </rule>
+
+    <!-- Formatting -->
+    <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
+    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+        <properties>
+            <property name="searchAnnotations" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property name="declareOnFirstLine" value="false"/>
+            <property name="linesCountBeforeDeclare" value="1"/>
+            <property name="linesCountAfterDeclare" value="1"/>
+            <property name="spacesCountAroundEqualsSign" value="0"/>
+        </properties>
+    </rule>
+
+    <!-- Control Structures -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireShortTernaryOperator"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireYodaComparison"/>
+
+    <!-- PHP 8.0+ Features -->
+    <rule ref="SlevomatCodingStandard.Classes.ClassStructure">
+        <properties>
+            <property name="groups" type="array">
+                <element value="uses"/>
+                <element value="enum cases"/>
+                <element value="constants"/>
+                <element value="properties"/>
+                <element value="constructor"/>
+                <element value="destructor"/>
+                <element value="methods"/>
+            </property>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.DNFTypeHintFormat"/>
+
+</ruleset>

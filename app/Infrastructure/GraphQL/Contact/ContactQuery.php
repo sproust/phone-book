@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\GraphQL\Contact;
 
@@ -19,14 +21,14 @@ final class ContactQuery extends ObjectType
 			'fields' => [
 				'contacts' => [
 					'type' => Type::listOf($this->contactType),
-					'resolve' => fn () => $this->contactsQueryResolver->resolve()
+					'resolve' => fn () => $this->contactsQueryResolver->resolve(),
 				],
 				'contact' => [
 					'type' => $this->contactType,
 					'args' => ['phone' => Type::nonNull(Type::string())],
-					'resolve' => fn ($root, array $args) => $this->contactQueryResolver->resolve($args['phone'])
-				]
-			]
+					'resolve' => fn ($root, array $args) => $this->contactQueryResolver->resolve($args['phone']),
+				],
+			],
 		]);
 	}
 }

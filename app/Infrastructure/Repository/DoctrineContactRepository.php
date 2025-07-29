@@ -1,7 +1,8 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Infrastructure\Repository;
-
 
 use App\Application\Repository\ContactRepository;
 use App\Domain\Entity\ContactEntity;
@@ -29,6 +30,9 @@ final readonly class DoctrineContactRepository implements ContactRepository
 		$this->entityManager->flush();
 	}
 
+	/**
+	 * @return array<ContactEntity>
+	 */
 	public function findAll(): array
 	{
 		return $this->entityManager->getRepository(ContactEntity::class)->findAll();
@@ -43,6 +47,4 @@ final readonly class DoctrineContactRepository implements ContactRepository
 	{
 		return $this->entityManager->getRepository(ContactEntity::class)->findOneBy(['phone' => $phone]);
 	}
-
-
 }
