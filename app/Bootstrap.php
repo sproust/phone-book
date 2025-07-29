@@ -6,6 +6,7 @@ namespace App;
 
 use Nette;
 use Nette\Bootstrap\Configurator;
+use Symfony\Component\Dotenv\Dotenv;
 
 
 class Bootstrap
@@ -32,8 +33,15 @@ class Bootstrap
 
 	public function initializeEnvironment(): void
 	{
+		$dotenv = new Dotenv();
+		$dotenv->load($this->rootDir . '/.env');
+
 		$this->configurator->setDebugMode(true); // enable for your remote IP
 		$this->configurator->enableTracy($this->rootDir . '/log');
+		$this->configurator->setTimeZone('Europe/Prague');
+		$this->configurator->addDynamicParameters([
+			'env' => $_ENV
+		]);
 
 		$this->configurator->createRobotLoader()
 			->addDirectory(__DIR__)

@@ -23,7 +23,14 @@ application:
 nettrine.dbal:
 	connections:
 		default:
-			url: "mysql://root:root@mariadb:3306/phone-book?serverVersion=10.11.6-MariaDB"
+			driver: mysqli
+			host: %env.DB_HOST%
+			port: int(%env.DB_PORT%)
+			user: %env.DB_USER%
+			password: %env.DB_PASSWORD%
+			dbname: %env.DB_NAME%
+			charset: utf8
+			serverVersion: 10.11.6-MariaDB
 
 nettrine.orm:
 	managers:
@@ -37,11 +44,11 @@ nettrine.orm:
 
 nettrine.migrations:
 	directories:
-		DoctrineMigrations: %appDir%/../migrations
+		DoctrineMigrations: %rootDir%/migrations
 
 nettrine.fixtures:
   paths:
-    - %appDir%/../fixtures
+    - %rootDir%/fixtures
 
 di:
 	export:
